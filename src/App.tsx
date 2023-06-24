@@ -1,8 +1,5 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export function App() {
-
-  return (
-     
-  )
+  return;
 }
