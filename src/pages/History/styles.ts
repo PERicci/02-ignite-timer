@@ -55,13 +55,24 @@ export const HistoryList = styled.div`
       }
 
       &:last-child {
+        width: 21%;
         padding-right: 1.5rem;
       }
     }
   }
 `
 
-export const Status = styled.span`
+const STATUS_COLORS = {
+  yellow: 'yellow-500',
+  green: 'green-500',
+  red: 'red-500',
+}
+
+interface StatusProps {
+  statusColor: keyof typeof STATUS_COLORS
+}
+
+export const Status = styled.span<StatusProps>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -71,6 +82,7 @@ export const Status = styled.span`
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: ${(props) => props.theme['yellow-500']};
+    background-color: ${(props) =>
+      props.theme[STATUS_COLORS[props.statusColor]]};
   }
 `
