@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { ReactNode, createContext, useState } from 'react'
 
 interface CreateCycleData {
   task: string
@@ -15,6 +15,7 @@ interface Cycle {
 }
 
 interface CyclesContextType {
+  cycles: Cycle[]
   activeCycle: Cycle | undefined
   activeCycleId: string | null
   amountSecondsPassed: number
@@ -24,9 +25,15 @@ interface CyclesContextType {
   stopCurrentCycle: () => void
 }
 
+interface CyclesContextProviderProps {
+  children: ReactNode
+}
+
 export const CyclesContext = createContext({} as CyclesContextType)
 
-export function CyclesContextProvider() {
+export function CyclesContextProvider({
+  children,
+}: CyclesContextProviderProps) {
   const [cycles, setCycles] = useState<Cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
@@ -62,8 +69,6 @@ export function CyclesContextProvider() {
     setCycles((state) => [...state, newCycle])
     setActiveCycleId(id)
     setAmountSecondsPassed(0)
-
-    // reset()
   }
 
   function stopCurrentCycle() {
@@ -83,6 +88,7 @@ export function CyclesContextProvider() {
   return (
     <CyclesContext.Provider
       value={{
+        cycles,
         activeCycle,
         activeCycleId,
         amountSecondsPassed,
@@ -91,6 +97,8 @@ export function CyclesContextProvider() {
         createNewCycle,
         stopCurrentCycle,
       }}
-    ></CyclesContext.Provider>
+    >
+      {children}
+    </CyclesContext.Provider>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react'
+import { useContext } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,6 +13,7 @@ import {
 
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
+import { CyclesContext } from '../../contexts/CycleContext'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Write a task'),
@@ -22,6 +23,9 @@ const newCycleFormValidationSchema = zod.object({
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
 export function Home() {
+  const { activeCycle, createNewCycle, stopCurrentCycle } =
+    useContext(CyclesContext)
+
   const newCycleForm = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
@@ -31,6 +35,11 @@ export function Home() {
   })
 
   const { handleSubmit, watch, reset } = newCycleForm
+
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    createNewCycle(data)
+    reset()
+  }
 
   const task = watch('task')
   const isSubmitDisabled = !task
@@ -44,7 +53,7 @@ export function Home() {
         <Countdown />
 
         {activeCycle ? (
-          <StopCountdownButton onClick={handleStopCycle} type="button">
+          <StopCountdownButton onClick={stopCurrentCycle} type="button">
             <HandPalm size={24} />
             Stop
           </StopCountdownButton>
