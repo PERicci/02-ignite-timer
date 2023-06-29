@@ -55,7 +55,11 @@ export function Countdown() {
   const seconds = String(secondsAmount).padStart(2, '0')
 
   useEffect(() => {
-    activeCycle && (document.title = `${minutes} : ${seconds}`)
+    if (activeCycle) {
+      document.title = `Ignite Timer | ${minutes} : ${seconds}`
+    } else {
+      document.title = `Ignite Timer`
+    }
   }, [minutes, seconds, activeCycle])
 
   return (
