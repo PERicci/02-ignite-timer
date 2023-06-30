@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
+import { NewCycleForm } from '../pages/Home/components/NewCycleForm'
 
 interface CreateCycleData {
   task: string
@@ -81,9 +82,21 @@ export function CyclesContextProvider({
         }
       }),
     )
-
     setActiveCycleId(null)
   }
+
+  // function storageCycles() {
+  //   const stringifyCycles = JSON.stringify(cycles)
+  //   localStorage.setItem('cycles', stringifyCycles)
+  // }
+
+  // useEffect(() => {
+  //   const savedCycles = localStorage.getItem('cycles') ?? ''
+  //   if (savedCycles !== '') {
+  //     const savedCyclesParsed = JSON.parse(savedCycles)
+  //     console.log(savedCyclesParsed)
+  //   }
+  // }, [])
 
   return (
     <CyclesContext.Provider
