@@ -15,12 +15,24 @@ interface CyclesState {
   activeCycleId: string | null
 }
 
-export function cyclesReducer(state: CyclesState, action: any) {
+interface actionStatePayload {
+  newCycle: Cycle
+}
+
+interface actionState {
+  type: string
+  payload?: actionStatePayload | null
+}
+
+export function cyclesReducer(
+  state: CyclesState,
+  action: actionState,
+): CyclesState {
   switch (action.type) {
     case ActionTypes.ADD_NEW_CYCLE:
       return produce(state, (draft) => {
-        draft.cycles.push(action.payload.newCycle)
-        draft.activeCycleId = action.payload.newCycle.id
+        draft.cycles.push(action.payload!.newCycle)
+        draft.activeCycleId = action.payload!.newCycle.id
       })
 
     case ActionTypes.STOP_CURRENT_CYCLE: {
@@ -52,5 +64,7 @@ export function cyclesReducer(state: CyclesState, action: any) {
         draft.cycles[currentCycleIndex].finishedDate = new Date()
       })
     }
+    default:
+      return { ...state }
   }
 }
