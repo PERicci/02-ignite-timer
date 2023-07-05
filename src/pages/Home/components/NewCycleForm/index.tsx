@@ -22,7 +22,6 @@ export function NewCycleForm() {
         <option value="Project 2" />
         <option value="Project 3" />
         <option value="Project 4" />
-        <option value="Banana" />
       </datalist>
 
       <label htmlFor="minutesAmount">for</label>
