@@ -29,7 +29,7 @@ A Pomodoro Timer application built with React and TypeScript. It allows you to s
 
 To run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/PERicci/Task-Manager.git`
+1. Clone the repository: `git clone https://github.com/PERicci/Pomodoro-Timer.git`
 2. Navigate to the project directory: `cd Timer`
 3. Install dependencies:
     Using npm: `npm install`
